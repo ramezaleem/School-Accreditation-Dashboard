@@ -33,15 +33,17 @@ export default function AdminSidebar({ mobileOpen, onClose }: AdminSidebarProps)
 
   return (
     <>
+      {/* Dark overlay when sidebar is open on mobile */}
       {mobileOpen && (
         <div
-          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 49 }}
+          className="sidebar-overlay"
           onClick={onClose}
+          aria-hidden="true"
         />
       )}
 
       <aside className={`sidebar${mobileOpen ? ' open' : ''}`}>
-        {/* Logo */}
+        {/* Logo + Close button on mobile */}
         <div className="sidebar-header">
           <div className="sidebar-logo">
             <div className="sidebar-logo-icon">🏫</div>
@@ -50,6 +52,15 @@ export default function AdminSidebar({ mobileOpen, onClose }: AdminSidebarProps)
               <span className="sidebar-logo-sub">الإبتدائية الحادي عشر</span>
             </div>
           </div>
+
+          {/* Close button — visible only on mobile */}
+          <button
+            className="sidebar-close-btn"
+            onClick={onClose}
+            aria-label="إغلاق القائمة"
+          >
+            ✕
+          </button>
         </div>
 
         {/* Nav */}
@@ -77,7 +88,11 @@ export default function AdminSidebar({ mobileOpen, onClose }: AdminSidebarProps)
             >
               <span className="sidebar-link-icon">{domain.icon}</span>
               <span style={{ flex: 1 }}>{domain.name}</span>
-              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: domain.color, flexShrink: 0, animationDelay: `${i * 0.1}s` }} />
+              <span style={{
+                width: '6px', height: '6px', borderRadius: '50%',
+                background: domain.color, flexShrink: 0,
+                animationDelay: `${i * 0.1}s`,
+              }} />
             </Link>
           ))}
 

@@ -1099,23 +1099,168 @@ input, textarea, select { font-family: inherit; }
    Responsive
    ═══════════════════════════════════════════════ */
 
+/* ═══════════════════════════════════════════════
+   Hamburger Button (Mobile Menu Toggle)
+   ═══════════════════════════════════════════════ */
+
+.mobile-menu-btn {
+  display: none; /* hidden on desktop */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 38px;
+  height: 38px;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  margin-left: 12px;         /* space before title in RTL */
+  transition: all var(--transition);
+}
+
+.mobile-menu-btn:hover {
+  background: var(--primary-50);
+  border-color: var(--primary-light);
+}
+
+.hamburger-line {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--text-secondary);
+  border-radius: 2px;
+  transition: all var(--transition);
+}
+
+.mobile-menu-btn:hover .hamburger-line {
+  background: var(--primary);
+}
+
+/* ── Sidebar Overlay (dark backdrop) ─────────── */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+  z-index: 48;
+  animation: fadeIn 0.2s ease;
+}
+
+/* ── Sidebar Close Button ─────────────────────── */
+.sidebar-close-btn {
+  display: none; /* hidden on desktop */
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #94A3B8;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--transition);
+  margin-right: auto;
+}
+
+.sidebar-close-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+/* ═══════════════════════════════════════════════
+   Responsive — Mobile
+   ═══════════════════════════════════════════════ */
+
 @media (max-width: 768px) {
+  /* Sidebar slides in from right (RTL) */
   .sidebar {
     transform: translateX(100%);
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: none;
+    z-index: 50;
   }
 
   .sidebar.open {
     transform: translateX(0);
+    box-shadow: -8px 0 32px rgba(0, 0, 0, 0.4);
   }
 
+  /* Show hamburger + close buttons on mobile */
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .sidebar-close-btn {
+    display: flex;
+  }
+
+  /* Sidebar header in mobile: logo + close button side by side */
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Main content takes full width */
   .main-content {
     margin-right: 0;
   }
 
-  .page-content { padding: 20px 16px; }
-  .top-header { padding: 0 16px; }
-  .domains-grid { grid-template-columns: 1fr; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  /* Top header adjustments */
+  .top-header {
+    padding: 0 14px;
+    gap: 8px;
+  }
+
+  /* Shrink header title on small screens */
+  .header-title {
+    font-size: 15px;
+  }
+
+  .header-breadcrumb {
+    display: none; /* hide breadcrumb on mobile to save space */
+  }
+
+  /* Page content */
+  .page-content {
+    padding: 18px 14px;
+  }
+
+  /* Grid adjustments */
+  .domains-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Admin domain page: stack indicators + evidences vertically */
+  .domain-two-col {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Table: allow horizontal scroll */
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Auth cards full width on very small screens */
+  .auth-card {
+    padding: 28px 20px;
+  }
+
+  /* Landing buttons full width */
+  .landing-btn {
+    width: 100%;
+    max-width: 320px;
+  }
 }
 
 /* ═══════════════════════════════════════════════
